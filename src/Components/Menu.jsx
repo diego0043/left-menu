@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import logo from "../assets/logo.png";
 import imgPerfil from "../assets/img-perfil.jpg";
 
@@ -7,7 +7,57 @@ export const Menu = () => {
   const menu = useRef();
   const btn_open = useRef();
   const user_img = useRef();
+  const general = useRef();
+  const seguridad = useRef();
+  const productoTecnico = useRef();
+  const servicioComercial = useRef();
+  const servicioTecnico = useRef();
+  const names = ["general", "seguridad", "productoTecnico", "servicioComercial", "servicioTecnico"];
 
+  const [leftMenu, setleftMenu] = useState({
+    general: true,
+    seguridad: false,
+    productoTecnico: false,
+    servicioComercial: false,
+    servicioTecnico: false,
+  })
+
+  const changeStateClass = (name = "general") => {
+
+      if ( name === "general" ) {
+        general.current.classList.toggle("selected")
+        seguridad.current.classList.remove("selected")
+        productoTecnico.current.classList.remove("selected")
+        servicioComercial.current.classList.remove("selected")
+        servicioTecnico.current.classList.remove("selected")
+      } else if ( name === "seguridad"){
+        general.current.classList.remove("selected")
+        seguridad.current.classList.toggle("selected")
+        productoTecnico.current.classList.remove("selected")
+        servicioComercial.current.classList.remove("selected")
+        servicioTecnico.current.classList.remove("selected")
+      } else if ( name === "productoTecnico"){
+        general.current.classList.remove("selected")
+        seguridad.current.classList.remove("selected")
+        productoTecnico.current.classList.toggle("selected")
+        servicioComercial.current.classList.remove("selected")
+        servicioTecnico.current.classList.remove("selected")
+      } else if ( name === "servicioComercial"){
+        general.current.classList.remove("selected")
+        seguridad.current.classList.remove("selected")
+        productoTecnico.current.classList.remove("selected")
+        servicioComercial.current.classList.toggle("selected")
+        servicioTecnico.current.classList.remove("selected")
+      }
+      else if ( name === "servicioTecnico"){
+        general.current.classList.remove("selected")
+        seguridad.current.classList.remove("selected")
+        productoTecnico.current.classList.remove("selected")
+        servicioComercial.current.classList.remove("selected")
+        servicioTecnico.current.classList.toggle("selected")
+      }      
+  };
+  
   //evento para mostrar y ocultar el menu
   const showMenu = () => {
     menu.current.classList.toggle("menu_side_move");
@@ -45,7 +95,7 @@ export const Menu = () => {
           <hr className="row" />
 
           <div className="options_menu">
-            <a className="selected" href="#">
+            <a onClick={() => changeStateClass(names[0])} ref={general} className="selected" href="#">
               <div className="option">
                 <span title="General" className="material-icons-outlined">
                   tips_and_updates
@@ -53,7 +103,7 @@ export const Menu = () => {
                 <h4>General</h4>
               </div>
             </a>
-            <a href="#">
+            <a onClick={() => changeStateClass(names[1])} ref={seguridad} href="#">
               <div className="option">
                 <span title="Seguridad" className="material-icons">
                   lock
@@ -61,7 +111,7 @@ export const Menu = () => {
                 <h4>Seguridad</h4>
               </div>
             </a>
-            <a href="#">
+            <a onClick={() => changeStateClass(names[2])} ref={productoTecnico} href="#">
               <div className="option">
                 <span
                   title="Calidad de producto tecinico"
@@ -72,7 +122,7 @@ export const Menu = () => {
                 <h4>Producto tecnico</h4>
               </div>
             </a>
-            <a href="#">
+            <a onClick={() => changeStateClass(names[3])} ref={servicioComercial} href="#">
               <div className="option">
                 <span
                   title="Calidad servicio comercial"
@@ -83,7 +133,7 @@ export const Menu = () => {
                 <h4>Servicio comercial</h4>
               </div>
             </a>
-            <a href="#">
+            <a onClick={() => changeStateClass(names[4])} ref={servicioTecnico} href="#">
               <div className="option">
                 <span
                   title="Calidad servicio tecnico"
